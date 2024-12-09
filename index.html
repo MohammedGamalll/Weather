@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Weather</title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+
+        <!-- Main Style -->
+        <link rel="stylesheet" href="css/home.css">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg bg-dark py-4">
+            <div class="container-xl px-md-5">
+                <a
+                    class="navbar-brand d-flex align-items-center justify-content-center py-0 "
+                    href="#index.html">
+                    <div class="logo-img">
+                        <img src="images/logo@2x.png" alt="Weather Logo">
+                    </div>
+                    <div class="logo-text px-2">
+                        <h3 class="my-0">Weather</h3>
+                        <p class="my-0">taglines goes here</p>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars text-white"></i>
+                </button>
+                <div class="collapse navbar-collapse"
+                    id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-lg-0 my-2 text-center">
+                        <li class="nav-item rounded-pill mx-2">
+                            <a class="nav-link text-white active"
+                                aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item rounded-pill mx-2">
+                            <a class="nav-link text-white" href="#">News</a>
+                        </li>
+                        <li class="nav-item rounded-pill mx-2">
+                            <a class="nav-link text-white" href="#">Live
+                                Cameras</a>
+                        </li>
+                        <li class="nav-item rounded-pill mx-2">
+                            <a class="nav-link text-white" href="#">Photos</a>
+                        </li>
+                        <li class="nav-item rounded-pill mx-2">
+                            <a class="nav-link text-white" href="#">Contact</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <header>
+            <div class="container-xl px-md-5">
+                <div class="search-bar py-5 d-flex justify-content-center align-items-center">
+                    <input type="text" class="form-control w-100 rounded-pill"
+                        placeholder="Find Your Location..." id="search-bar" >
+                    <button class="rounded-pill" id="search-btn">Find</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="bg-dark">
+            <div class="container-xl items px-md-5 ">
+                <div class="gallery row px-3 py-4 gy-2 justify-content-center">
+                    <div
+                        class="card rounded-0 rounded-start-2 col-lg-4 col-sm-6 card-bg text-white px-0"
+                        id="today">
+                        <div class="inner px-1">
+                            <div class="card-header d-flex">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card rounded-0 col-lg-4 col-sm-6 bg-dark text-white"
+                        id="tomorrow">
+                        <div class="card-header d-flex">
+                        </div>
+                    </div>
+                    <div
+                        class="card rounded-0 rounded-end-2 col-lg-4 col-sm-6 card-bg text-white"
+                        id="overmorrow">
+                        <div class="card-header d-flex">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <div class="container-xl px-md-5 py-4">
+                <div class="inner w-100 row gy-4 justify-content-between align-items-center pb-4">
+                    <div class="contact d-flex position-relative col-md-6">
+                        <input type="email" placeholder="Enter Your Email to Subscribe..." class="form-control w-100 rounded-pill">
+                        <button class="btn btn-primary rounded-pill">Subscribe</button>
+                    </div>
+    
+                    <div class="contact-icons col-md-6">
+                        <a href="#">
+                            <div class="icon">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="icon">
+                                <i class="fa-brands fa-twitter"></i>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="icon">
+                                <i class="fa-brands fa-google-plus"></i>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="icon">
+                                <i class="fa-brands fa-pinterest"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <p class="text-center">Copyright 2014 Company name. Designed by Themezy. All rights reserved</p>
+            </div>
+        </footer>
+
+        <script src="js/home.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>
