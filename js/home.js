@@ -65,7 +65,7 @@ searchInput.addEventListener('keyup', () => {
 
 function getWeather(cityName) {
   let weatherHTTP = new XMLHttpRequest();
-  weatherHTTP.open('GET', `http://api.weatherapi.com/v1/forecast.json?key=56f186a354a844b0ad5165157240612&q=${cityName}&days=3`);
+  weatherHTTP.open('GET', `https://api.weatherapi.com/v1/forecast.json?key=56f186a354a844b0ad5165157240612&q=${cityName}&days=3`);
   weatherHTTP.send();
   weatherHTTP.onreadystatechange = () => {
     if (weatherHTTP.readyState === 4 && weatherHTTP.status === 200) {
