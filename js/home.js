@@ -10,7 +10,6 @@ function getCoordinates() {
     var lat = crd.latitude.toString();
     var lng = crd.longitude.toString();
     var coordinates = [lat, lng];
-    // console.log(`Latitude: ${lat}, Longitude: ${lng}`); 
     getCity(coordinates);
     return;
 
@@ -39,7 +38,6 @@ function getCity(coordinates) {
       var response = JSON.parse(xhr.responseText);
       var city = response.address.city;
       getWeather(city);
-      console.log(city);
       return;
     }
   }
@@ -70,7 +68,6 @@ function getWeather(cityName) {
   weatherHTTP.onreadystatechange = () => {
     if (weatherHTTP.readyState === 4 && weatherHTTP.status === 200) {
       let data = JSON.parse(weatherHTTP.responseText);
-      console.log(data);
       getTodayWeather(data);
       getTomorrowWeather(data);
       getOvermorrowWeather(data);
