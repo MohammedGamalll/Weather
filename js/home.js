@@ -49,9 +49,13 @@ let searchInput = document.getElementById('search-bar');
 
 var dayNames = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
 var now = new Date();
+if (now.getDay() + 2 > 6) {
+  dayNames = dayNames.concat(dayNames);
+}
 let today = dayNames[now.getDay()];
 let tomorrow = dayNames[now.getDay() + 1];
 let overmorrow = dayNames[now.getDay() + 2];
+console.log(today, tomorrow, dayNames[now.getDay() + 2]);
 
 
 searchInput.addEventListener('keyup', () => {
@@ -68,6 +72,7 @@ function getWeather(cityName) {
   weatherHTTP.onreadystatechange = () => {
     if (weatherHTTP.readyState === 4 && weatherHTTP.status === 200) {
       let data = JSON.parse(weatherHTTP.responseText);
+      console.log(data);
       getTodayWeather(data);
       getTomorrowWeather(data);
       getOvermorrowWeather(data);
