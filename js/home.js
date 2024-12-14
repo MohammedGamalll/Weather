@@ -48,22 +48,13 @@ let searchBtn = document.getElementById('search-btn');
 let searchInput = document.getElementById('search-bar');
 
 var dayNames = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-var now = new Date();
-if (now.getDay() + 2 > 6) {
-  dayNames = dayNames.concat(dayNames);
-}
-let today = dayNames[now.getDay()];
-let tomorrow = dayNames[now.getDay() + 1];
-let overmorrow = dayNames[now.getDay() + 2];
-console.log(today, tomorrow, dayNames[now.getDay() + 2]);
-
 
 searchInput.addEventListener('keyup', () => {
   let cityName = searchInput.value;
-  getWeather(cityName);
-
+  if(cityName.length > 2) {
+    getWeather(cityName);
+  }
 });
-
 
 function getWeather(cityName) {
   let weatherHTTP = new XMLHttpRequest();
@@ -72,17 +63,31 @@ function getWeather(cityName) {
   weatherHTTP.onreadystatechange = () => {
     if (weatherHTTP.readyState === 4 && weatherHTTP.status === 200) {
       let data = JSON.parse(weatherHTTP.responseText);
-      console.log(data);
-      getTodayWeather(data);
-      getTomorrowWeather(data);
-      getOvermorrowWeather(data);
+      let date = data.location.localtime;
+      let dayName = getDayName(date.split(' ')[0]);
+      let today = dayName;
+      if (dayName === 'Friday') {
+        tomorrow = dayNames[dayNames.indexOf(dayName) + 1];
+        overmorrow = dayNames[0];
+      }
+      else if (dayName === 'Saturday') {
+        tomorrow = dayNames[0];
+        overmorrow = dayNames[1];
+      }
+      else{
+        let tomorrow = dayNames[dayNames.indexOf(dayName) + 1];
+        let overmorrow = dayNames[dayNames.indexOf(dayName) + 2];
+      }
+
+      getTodayWeather(data ,today);
+      getTomorrowWeather(data , tomorrow);
+      getOvermorrowWeather(data, overmorrow);
     }
   }
 }
 
-function getTodayWeather(data) {
+function getTodayWeather(data , today) {
   let cityName = data.location.name;
-  let countryName = data.location.country;
   let temp = data.current.temp_c;
   let condition = data.current.condition.text;
   let icon = data.current.condition.icon;
@@ -92,7 +97,7 @@ function getTodayWeather(data) {
   let time = date.split(' ')[1];
   date = date.split(' ')[0];
   let day = date.split('-')[2];
-  let month = date.split('-')[1]; 
+  let month = date.split('-')[1];
 
   let weatherCard = document.getElementById('today');
   weatherCard.innerHTML = `
@@ -124,7 +129,7 @@ function getTodayWeather(data) {
               `;
 }
 
-function getTomorrowWeather(data) {
+function getTomorrowWeather(data, tomorrow) {
   let maxtemp = data.forecast.forecastday[1].day.maxtemp_c;
   let mintemp = data.forecast.forecastday[1].day.mintemp_c;
   let condition = data.forecast.forecastday[1].day.condition.text;
@@ -153,7 +158,7 @@ function getTomorrowWeather(data) {
 
 }
 
-function getOvermorrowWeather(data) {
+function getOvermorrowWeather(data , overmorrow) {
   let maxtemp = data.forecast.forecastday[2].day.maxtemp_c;
   let mintemp = data.forecast.forecastday[2].day.mintemp_c;
   let condition = data.forecast.forecastday[2].day.condition.text;
@@ -182,13 +187,7 @@ function getOvermorrowWeather(data) {
 
 }
 
-
-
-
-
-
-
-
-
-
-// // 56f186a354a844b0ad5165157240612
+function getDayName(dateStr) {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-US", { weekday: "long" });
+}
