@@ -65,28 +65,35 @@ function getWeather(cityName) {
       let data = JSON.parse(weatherHTTP.responseText);
       let date = data.location.localtime;
       let dayName = getDayName(date.split(' ')[0]);
-      let today = dayName;
+      let today = dayName;0
+      let tomorrowName;
+      let overmorrowName;
       if (dayName === 'Friday') {
-        tomorrow = dayNames[dayNames.indexOf(dayName) + 1];
-        overmorrow = dayNames[0];
+        tomorrowName = dayNames[dayNames.indexOf(dayName) + 1];
+        overmorrowName = dayNames[0];
+
       }
       else if (dayName === 'Saturday') {
-        tomorrow = dayNames[0];
-        overmorrow = dayNames[1];
+        tomorrowName = dayNames[0];
+        overmorrowName = dayNames[1];
+
       }
       else{
-        let tomorrow = dayNames[dayNames.indexOf(dayName) + 1];
-        let overmorrow = dayNames[dayNames.indexOf(dayName) + 2];
-      }
+        tomorrowName = dayNames[dayNames.indexOf(dayName) + 1];
+        overmorrowName = dayNames[dayNames.indexOf(dayName) + 2];
 
-      getTodayWeather(data ,today);
-      getTomorrowWeather(data , tomorrow);
-      getOvermorrowWeather(data, overmorrow);
+      }
+      let days = [today, tomorrowName, overmorrowName];
+      localStorage.setItem('days', JSON.stringify(days));
+
+      getTodayWeather(data);
+      getTomorrowWeather(data );
+      getOvermorrowWeather(data);
     }
   }
 }
 
-function getTodayWeather(data , today) {
+function getTodayWeather(data ) {
   let cityName = data.location.name;
   let temp = data.current.temp_c;
   let condition = data.current.condition.text;
@@ -98,6 +105,10 @@ function getTodayWeather(data , today) {
   date = date.split(' ')[0];
   let day = date.split('-')[2];
   let month = date.split('-')[1];
+
+  let days = localStorage.getItem('days');
+  days = JSON.parse(days);
+  let today = days[0];
 
   let weatherCard = document.getElementById('today');
   weatherCard.innerHTML = `
@@ -129,18 +140,22 @@ function getTodayWeather(data , today) {
               `;
 }
 
-function getTomorrowWeather(data, tomorrow) {
+function getTomorrowWeather(data) {
   let maxtemp = data.forecast.forecastday[1].day.maxtemp_c;
   let mintemp = data.forecast.forecastday[1].day.mintemp_c;
   let condition = data.forecast.forecastday[1].day.condition.text;
   let icon = data.forecast.forecastday[1].day.condition.icon;
+
+  let days = localStorage.getItem('days');
+  days = JSON.parse(days);
+  let tomorrowName = days[1];
 
   let weatherCard2 = document.getElementById('tomorrow');
   weatherCard2.innerHTML = `
     <div
     class="inner d-flex flex-column align-items-center">
     <div class="card-header w-100">
-      <p class="text-center">${tomorrow}</p>
+      <p class="text-center">${tomorrowName}</p>
     </div>
     <div class="card-body">
       <div class="weather-icon text-center">
@@ -158,18 +173,22 @@ function getTomorrowWeather(data, tomorrow) {
 
 }
 
-function getOvermorrowWeather(data , overmorrow) {
+function getOvermorrowWeather(data ) {
   let maxtemp = data.forecast.forecastday[2].day.maxtemp_c;
   let mintemp = data.forecast.forecastday[2].day.mintemp_c;
   let condition = data.forecast.forecastday[2].day.condition.text;
   let icon = data.forecast.forecastday[2].day.condition.icon;
+
+  let days = localStorage.getItem('days');
+  days = JSON.parse(days);
+  let overmorrowName = days[2];
 
   let weatherCard3 = document.getElementById('overmorrow');
   weatherCard3.innerHTML = `
     <div
     class="inner d-flex flex-column align-items-center">
     <div class="card-header w-100">
-      <p class="text-center">${overmorrow}</p>
+      <p class="text-center">${overmorrowName}</p>
     </div>
     <div class="card-body">
       <div class="weather-icon text-center">
